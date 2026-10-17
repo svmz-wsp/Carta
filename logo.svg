@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 72" width="360" height="72" role="img" aria-label="Restaurante Campestre El Dorado">
+  <title>Restaurante Campestre El Dorado</title>
+
+  <!-- Símbolo provisional: hoja sobre círculo esmeralda -->
+  <circle cx="36" cy="36" r="30" fill="#087F5B"/>
+  <path d="M49 23c1 13-8.5 22-21.5 22 0-12.5 9-21.5 21.5-22z" fill="#FFFFFF"/>
+  <path d="M28.5 44.5 44.5 28.5" fill="none" stroke="#087F5B" stroke-width="2" stroke-linecap="round"/>
+  <path d="M27.5 45c-3 1.5-5 4.5-5.5 8" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
+
+  <!-- Nombre del restaurante -->
+  <text x="80" y="32" fill="#FFFFFF" font-size="20" font-weight="700"
+        font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif">Restaurante Campestre</text>
+  <text x="80" y="58" fill="#43D9A0" font-size="23" font-weight="800"
+        font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif">El Dorado</text>
+</svg>
