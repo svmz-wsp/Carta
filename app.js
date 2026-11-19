@@ -453,10 +453,10 @@
       setAdminMode(false);
       return;
     }
-    var hayCloud = !!(cloud && typeof cloud.crear === 'function');
-    var haySesion = !!(hayCloud && typeof cloud.usuario === 'function' && cloud.usuario());
-    /* Solo se piden credenciales si la nube está activa y no hay sesión recordada */
-    el.adminCredenciales.hidden = !hayCloud || haySesion;
+    var hayAuth = !!(cloud && typeof cloud.iniciarSesion === 'function');
+    var haySesion = !!(hayAuth && typeof cloud.usuario === 'function' && cloud.usuario());
+    /* Solo se piden credenciales si Authentication está activo y no hay sesión recordada */
+    el.adminCredenciales.hidden = !hayAuth || haySesion;
     limpiarErrorAuth();
     el.adminConfirmBtn.disabled = false;
     openModal(el.adminDialog);
@@ -474,7 +474,14 @@
       return;
     }
 
-    /* El teléfono del dueño recuerda la sesión */
+    /* Nube activa pero sin Authentication: no se puede validar la clave.
+       Se avisa en vez de dejar el botón "colgado" sin hacer nada. */
+    if (typeof cloud.iniciarSesion !== 'function') {
+      showToast('No se puede validar la clave: Authentication no está disponible.', 'error');
+      return;
+    }
+
+    /* Si quedara una sesión abierta de la visita actual, entra directo */
     if (typeof cloud.usuario === 'function' && cloud.usuario()) {
       activarAdministracion();
       return;
@@ -493,7 +500,9 @@
       activarAdministracion();
     }).catch(function (err) {
       el.adminConfirmBtn.disabled = false;
-      mostrarErrorAuth(mensajeAuth(err));
+      var msg = mensajeAuth(err);
+      mostrarErrorAuth(msg);
+      showToast(msg, 'error');
     });
   }
 

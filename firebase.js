@@ -87,6 +87,19 @@
 
         try {
           auth = fa.getAuth(app);
+          /* La sesión de admin no se persiste: se pide la clave en
+             cada reentrada, también tras recargar o cerrar la pestaña.
+             inMemoryPersistence no afecta al personal (no inicia sesión). */
+          fa.setPersistence(auth, fa.inMemoryPersistence).catch(function (err) {
+            console.warn('No se pudo fijar la persistencia de sesión:', err);
+          });
+          /* Se descarta cualquier sesión recordada por el navegador al
+             cargar, de modo que la app pida la clave en cada entrada
+             (también tras recargar), aunque Firebase haya persistido la
+             sesión anterior. No afecta a otros dispositivos. */
+          fa.signOut(auth).catch(function (err) {
+            console.warn('No se pudo cerrar la sesión al iniciar:', err);
+          });
         } catch (errAuth) {
           auth = null;
           console.warn('Authentication no disponible:', errAuth);
